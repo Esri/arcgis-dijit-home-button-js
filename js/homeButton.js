@@ -22,7 +22,7 @@ function (
         declaredClass: "modules.homeButton",
         templateString: dijitTemplate,
         options: {
-            theme: "default",
+            theme: "homeButton",
             map: null,
             visible: true
         },
@@ -42,8 +42,8 @@ function (
             this.watch("visible", this._visible);
             // classes
             this._css = {
-                container: "homeButton",
-                home: "zoomHomeButton",
+                container: "container",
+                home: "home",
                 loading: "loading"
             };
         },

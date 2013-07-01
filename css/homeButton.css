@@ -1,8 +1,8 @@
-.default .homeButton span {
+.homeButton span {
 	display:none;
 }
 
-.default .homeButton .zoomHomeButton {
+.homeButton .home {
     padding:2px;
     width:30px;
 	height:30px;
@@ -22,16 +22,16 @@
 	background-repeat:no-repeat;
 }
 
-.default .homeButton .zoomHomeButton:hover {
+.homeButton .home:hover {
     background-color: #333;
     background-color: rgba(102,102,102,0.90);
 }
 
-.default .homeButton .zoomHomeButton:active {
+.homeButton .home:active {
     background-color: #ccc;
     background-color: rgba(102,102,102,0.60);
 }
 
-.default .homeButton .loading {
+.homeButton .loading {
 	background-image:url(../images/spinner.gif);
 }
