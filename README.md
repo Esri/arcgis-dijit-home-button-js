@@ -1,12 +1,30 @@
-# arcgis-dijit-sample-js
+# arcgis-dijit-home-button-js
 
 ## Features
-An example Dijit boilerplate for the ArcGIS API for JavaScript
+A simple dijit button return to the map's default extent when clicked.
 
-[View Demo](http://driskull.github.com/arcgis-dijit-sample-js/)
+![App](https://raw.github.com/driskull/arcgis-dijit-home-button-js/master/images/demo.png)
+
+[View Demo](http://driskull.github.com/arcgis-dijit-home-button-js/)
 
 ## Instructions
-See the powerpoint in the root directory for more information. This demo theater was presented at the 2013 Developer Summit in Palm Springs CA.
+
+Basic use
+
+    var myWidget = new homeButton({
+        map: myMap,
+    }, "homeButton");
+    myWidget.startup();
+    
+All options
+    
+     var myWidget = new homeButton({
+        map: myMap,
+        theme: "homeButton", // use a custom theme to style yourself
+        visible: true // show the button
+    }, "homeButton");
+    myWidget.startup();
+
 
  [New to Github? Get started here.](https://github.com/)
 
@@ -47,5 +65,5 @@ limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/geocoder-search-widget-js/master/license.txt) file.
 
-[](Esri Tags: ArcGIS JavaScript API Dijit module boilerplate Widget Public)
+[](Esri Tags: ArcGIS JavaScript API Dijit module swipe Widget Public swipemap LayerSwipe)
 [](Esri Language: JavaScript)

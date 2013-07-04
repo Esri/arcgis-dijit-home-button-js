@@ -42,7 +42,7 @@ function (
             this.watch("visible", this._visible);
             // classes
             this._css = {
-                container: "container",
+                container: "homeCon",
                 home: "home",
                 loading: "loading"
             };
