@@ -1,5 +1,6 @@
 define([
     "dojo/_base/declare",
+    "dojo/_base/lang",
     "dijit/_WidgetBase",
     "dijit/_OnDijitClickMixin",
     "dijit/_TemplatedMixin",
@@ -13,6 +14,7 @@ define([
 ],
 function (
     declare,
+    lang,
     _WidgetBase, _OnDijitClickMixin, _TemplatedMixin,
     on,
     dijitTemplate, i18n,
@@ -49,21 +51,20 @@ function (
         },
         // start widget. called by user
         startup: function() {
-            var _self = this;
             // map not defined
-            if (!_self.map) {
-                _self.destroy();
+            if (!this.map) {
+                this.destroy();
                 return new Error('map required');
             }
             // map domNode
-            _self._mapNode = dom.byId(_self.map.id);
+            this._mapNode = dom.byId(this.map.id);
             // when map is loaded
-            if (_self.map.loaded) {
-                _self._init();
+            if (this.map.loaded) {
+                this._init();
             } else {
-                on(_self.map, "load", function() {
-                    _self._init();
-                });
+                on(this.map, "load", lang.hitch(this, function() {
+                    this._init();
+                }));
             }
         },
         // connections/subscriptions will be cleaned up during the destroy() lifecycle phase
@@ -81,16 +82,15 @@ function (
         /* Public Functions */
         /* ---------------- */
         go: function() {
-            var _self = this;
-            var defaultExtent = _self.get("startExtent");
-            _self._showLoading();
+            var defaultExtent = this.get("startExtent");
+            this._showLoading();
             if(defaultExtent){
-                return _self.map.setExtent(defaultExtent).then(function(){
-                    _self._hideLoading();
-                });   
+                return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
+                    this._hideLoading();
+                }));   
             }
             else{
-                _self._hideLoading();
+                this._hideLoading();
                 return new Error('no home extent');
             }
         },
@@ -104,9 +104,8 @@ function (
         /* Private Functions */
         /* ---------------- */
         _init: function() {
-            var _self = this;
-            _self._visible();
-            _self.onLoad();
+            this._visible();
+            this.onLoad();
         },
         _showLoading: function(){
             domClass.add(this._homeNode, this._css.loading);
@@ -115,17 +114,15 @@ function (
             domClass.remove(this._homeNode, this._css.loading);
         },
         _updateThemeWatch: function(attr, oldVal, newVal) {
-            var _self = this;
-            domClass.remove(_self.domNode, oldVal);
-            domClass.add(_self.domNode, newVal);
+            domClass.remove(this.domNode, oldVal);
+            domClass.add(this.domNode, newVal);
         },
         _visible: function(){
-            var _self = this;
-            if(_self.get("visible")){
-                domStyle.set(_self.domNode, 'display', 'block');
+            if(this.get("visible")){
+                domStyle.set(this.domNode, 'display', 'block');
             }
             else{
-                domStyle.set(_self.domNode, 'display', 'none');
+                domStyle.set(this.domNode, 'display', 'none');
             }
         }
     });
