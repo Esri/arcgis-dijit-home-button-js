@@ -26,6 +26,7 @@ function (
         options: {
             theme: "homeButton",
             map: null,
+            extent: null,
             visible: true
         },
         // lifecycle: 1
@@ -39,6 +40,7 @@ function (
             this.set("map", this.options.map);
             this.set("theme", this.options.theme);
             this.set("visible", this.options.visible);
+            this.set("extent", this.options.extent);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -75,14 +77,16 @@ function (
         /* Public Events */
         /* ---------------- */
         onLoad: function() {
-            this.set("startExtent", this.map.extent);
+            if(!this.get("extent")){
+                this.set("extent", this.map.extent);   
+            }
             this.set("loaded", true);
         },
         /* ---------------- */
         /* Public Functions */
         /* ---------------- */
         go: function() {
-            var defaultExtent = this.get("startExtent");
+            var defaultExtent = this.get("extent");
             this._showLoading();
             if(defaultExtent){
                 return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
