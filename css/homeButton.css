@@ -1,8 +1,8 @@
-.homeButton span {
+.HomeButton span {
 	display:none;
 }
 
-.homeButton .home {
+.HomeButton .home {
     padding:2px;
     width:30px;
 	height:30px;
@@ -22,16 +22,16 @@
 	background-repeat:no-repeat;
 }
 
-.homeButton .home:hover {
+.HomeButton .home:hover {
     background-color: #333;
     background-color: rgba(102,102,102,0.90);
 }
 
-.homeButton .home:active {
+.HomeButton .home:active {
     background-color: #ccc;
     background-color: rgba(102,102,102,0.60);
 }
 
-.homeButton .loading {
+.HomeButton .loading {
 	background-image:url(../images/spinner.gif);
 }

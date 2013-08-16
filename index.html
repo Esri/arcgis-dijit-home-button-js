@@ -6,7 +6,7 @@
     <title>Home Extent Button Dijit</title>
     <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.6/js/esri/css/esri.css">
     <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.6/js/dojo/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" type="text/css" href="css/homeButton.css">
+    <link rel="stylesheet" type="text/css" href="css/HomeButton.css">
     <style type="text/css">
     body{
             margin:40px;
@@ -24,7 +24,7 @@
             height: 500px;
             position: relative;
         }
-        #homeButton{
+        #HomeButton{
             position: absolute;
             top:95px;
             left: 20px;
@@ -35,7 +35,7 @@
 <body class="claro">
     <div class="container">
         <div id="map" class="map">
-            <div id="homeButton"></div>
+            <div id="HomeButton"></div>
         </div>
     </div>
     <h2>All Options</h2>
@@ -58,7 +58,7 @@
     <script src="http://js.arcgis.com/3.6/" type="text/javascript"></script>
     <script type="text/javascript">
 
-        require(["esri/map", "modules/homeButton"], function(Map, homeButton){
+        require(["esri/map", "modules/HomeButton"], function(Map, HomeButton){
 
             var myMap = new Map("map", {
                 center: [-56.049, 38.485],
@@ -68,9 +68,9 @@
 
             
             
-            myWidget = new homeButton({
+            myWidget = new HomeButton({
                 map: myMap,
-            }, "homeButton");
+            }, "HomeButton");
             myWidget.startup();
             
             

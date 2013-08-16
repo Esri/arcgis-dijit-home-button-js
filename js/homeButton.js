@@ -1,4 +1,5 @@
 define([
+    "dojo/Evented",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dijit/_WidgetBase",
@@ -6,13 +7,14 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     // load template
-    "dojo/text!./templates/homeButton.html",
-    "dojo/i18n!./nls/homeButton",
+    "dojo/text!./templates/HomeButton.html",
+    "dojo/i18n!./nls/HomeButton",
     "dojo/dom",
     "dojo/dom-class",
     "dojo/dom-style"
 ],
 function (
+    Evented,
     declare,
     lang,
     _WidgetBase, _OnDijitClickMixin, _TemplatedMixin,
@@ -21,10 +23,10 @@ function (
     dom, domClass, domStyle
 ) {
     return declare([_WidgetBase, _OnDijitClickMixin, _TemplatedMixin], {
-        declaredClass: "modules.homeButton",
+        declaredClass: "esri.dijit.HomeButton",
         templateString: dijitTemplate,
         options: {
-            theme: "homeButton",
+            theme: "HomeButton",
             map: null,
             extent: null,
             visible: true
@@ -56,10 +58,8 @@ function (
             // map not defined
             if (!this.map) {
                 this.destroy();
-                return new Error('map required');
+                console.log('map required');
             }
-            // map domNode
-            this._mapNode = dom.byId(this.map.id);
             // when map is loaded
             if (this.map.loaded) {
                 this._init();
@@ -81,6 +81,10 @@ function (
                 this.set("extent", this.map.extent);   
             }
             this.set("loaded", true);
+            this.emit("load", {});
+        },
+        onGo: function(){
+            this.emit("go", {});
         },
         /* ---------------- */
         /* Public Functions */
@@ -88,14 +92,15 @@ function (
         go: function() {
             var defaultExtent = this.get("extent");
             this._showLoading();
+            this.onGo();
             if(defaultExtent){
                 return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     this._hideLoading();
-                }));   
+                }));
             }
             else{
                 this._hideLoading();
-                return new Error('no home extent');
+                console.log('no home extent');
             }
         },
         show: function(){
