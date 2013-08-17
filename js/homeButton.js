@@ -76,23 +76,15 @@ function (
         /* ---------------- */
         /* Public Events */
         /* ---------------- */
-        onLoad: function() {
-            if(!this.get("extent")){
-                this.set("extent", this.map.extent);   
-            }
-            this.set("loaded", true);
-            this.emit("load", {});
-        },
-        onGo: function(){
-            this.emit("go", {});
-        },
+        // home
+        // load
         /* ---------------- */
         /* Public Functions */
         /* ---------------- */
-        go: function() {
+        home: function() {
+            this.emit("home", {});
             var defaultExtent = this.get("extent");
             this._showLoading();
-            this.onGo();
             if(defaultExtent){
                 return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     this._hideLoading();
@@ -114,7 +106,11 @@ function (
         /* ---------------- */
         _init: function() {
             this._visible();
-            this.onLoad();
+            if(!this.get("extent")){
+                this.set("extent", this.map.extent);   
+            }
+            this.set("loaded", true);
+            this.emit("load", {});
         },
         _showLoading: function(){
             domClass.add(this._homeNode, this._css.loading);
