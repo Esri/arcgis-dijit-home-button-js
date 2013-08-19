@@ -58,7 +58,7 @@ function (
             // map not defined
             if (!this.map) {
                 this.destroy();
-                console.log('map required');
+                console.log('HomeButton::map required');
             }
             // when map is loaded
             if (this.map.loaded) {
@@ -92,7 +92,7 @@ function (
             }
             else{
                 this._hideLoading();
-                console.log('no home extent');
+                console.log('HomeButton::no home extent');
             }
         },
         show: function(){
