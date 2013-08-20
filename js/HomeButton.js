@@ -8,9 +8,9 @@ define([
     "dijit/_OnDijitClickMixin",
     "dijit/_TemplatedMixin",
     "dojo/on",
-    // load template
-    "dojo/text!./templates/HomeButton.html",
-    "dojo/i18n!./nls/HomeButton",
+    // load template    
+    "dojo/text!zesri/dijit/templates/HomeButton.html",
+    "dojo/i18n!zesri/nls/jsapi",
     "dojo/dom-class",
     "dojo/dom-style"
 ],
