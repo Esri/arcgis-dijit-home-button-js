@@ -71,8 +71,8 @@
                 map: myMap,
             }, "HomeButton");
             
-            myWidget.on('home', function(){
-                 console.log('test');
+            myWidget.on('home', function(obj){
+                 console.log(obj);
             });
             
             myWidget.startup();
