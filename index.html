@@ -57,7 +57,7 @@
     <script src="http://js.arcgis.com/3.6/" type="text/javascript"></script>
     <script type="text/javascript">
 
-        require(["esri/map", "modules/HomeButton"], function(Map, HomeButton){
+        require(["esri/map", "modules/HomeButton", "dojo/on"], function(Map, HomeButton, on){
 
             var myMap = new Map("map", {
                 center: [-56.049, 38.485],
@@ -70,6 +70,11 @@
             myWidget = new HomeButton({
                 map: myMap,
             }, "HomeButton");
+            
+            myWidget.on('home', function(){
+                 console.log('test');
+            });
+            
             myWidget.startup();
             
             

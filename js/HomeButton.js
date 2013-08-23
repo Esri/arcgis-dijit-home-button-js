@@ -24,7 +24,7 @@ function (
     dijitTemplate, i18n,
     domClass, domStyle
 ) {
-    var Widget = declare([_WidgetBase, _OnDijitClickMixin, _TemplatedMixin], {
+    var Widget = declare([Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin], {
         declaredClass: "esri.dijit.HomeButton",
         templateString: dijitTemplate,
         options: {
@@ -84,7 +84,6 @@ function (
         /* Public Functions */
         /* ---------------- */
         home: function() {
-            this.emit("home", {});
             var defaultExtent = this.get("extent");
             this._showLoading();
             if(defaultExtent){
@@ -96,6 +95,7 @@ function (
                 this._hideLoading();
                 console.log('HomeButton::no home extent');
             }
+            this.emit("home", {extent: defaultExtent});
         },
         show: function(){
             this.set("visible", true);  
