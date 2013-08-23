@@ -89,13 +89,13 @@ function (
             if(defaultExtent){
                 return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     this._hideLoading();
+                    this.emit("home", {extent: defaultExtent});
                 }));
             }
             else{
                 this._hideLoading();
                 console.log('HomeButton::no home extent');
             }
-            this.emit("home", {extent: defaultExtent});
         },
         show: function(){
             this.set("visible", true);  
