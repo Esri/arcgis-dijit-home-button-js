@@ -50,7 +50,7 @@ function (
             this.watch("visible", this._visible);
             // classes
             this._css = {
-                container: "homeCon",
+                container: "homeContainer",
                 home: "home",
                 loading: "loading"
             };
