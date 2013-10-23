@@ -8,6 +8,7 @@ define([
     "dijit/a11yclick",
     "dijit/_TemplatedMixin",
     "dojo/on",
+    "dojo/Deferred",
     // load template    
     "dojo/text!zesri/dijit/templates/HomeButton.html",
     "dojo/i18n!zesri/nls/jsapi",
@@ -21,6 +22,7 @@ function (
     has, esriNS,
     _WidgetBase, a11yclick, _TemplatedMixin,
     on,
+    Deferred,
     dijitTemplate, i18n,
     domClass, domStyle
 ) {
@@ -91,18 +93,25 @@ function (
         /* Public Functions */
         /* ---------------- */
         home: function() {
+            var def = new Deferred();
             var defaultExtent = this.get("extent");
             this._showLoading();
             if(defaultExtent){
-                return this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
+                this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     this._hideLoading();
-                    this.emit("home", {extent: defaultExtent});
+                    var evtObject = {extent: defaultExtent};
+                    this.emit("home", evtObject);
+                    def.resolve(evtObject);
+                }), lang.hitch(this, function(error){
+                    def.reject(error.message);
                 }));
             }
             else{
                 this._hideLoading();
                 console.log('HomeButton::no home extent');
+                def.reject('HomeButton::no home extent');
             }
+            return def.promise;
         },
         show: function(){
             this.set("visible", true);  
