@@ -96,23 +96,29 @@ function (
             var def = new Deferred();
             var defaultExtent = this.get("extent");
             this._showLoading();
+            var homeEvt = {
+                extent: defaultExtent
+            };
             if(defaultExtent){
                 this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     this._hideLoading();
-                    var evtObject = {extent: defaultExtent};
-                    this.emit("home", evtObject);
-                    def.resolve(evtObject);
+                    this.emit("home", homeEvt);
+                    def.resolve(homeEvt);
                 }), lang.hitch(this, function(error){
-                    this.emit("home", {error:error || true});
+                    if(!error){
+                        error = new Error("HomeButton::Failed setting extent on map");
+                    }
+                    homeEvt.error = error;
+                    this.emit("home", homeEvt);
                     def.reject(error);
                 }));
             }
             else{
                 this._hideLoading();
-                var message = 'HomeButton::no home extent';
-                this.emit("home", {error:message});
-                console.log(message);
-                def.reject(message);
+                var error = new Error("HomeButton::no home extent");
+                homeEvt.error = error;
+                this.emit("home", homeEvt);
+                def.reject(error);
             }
             return def.promise;
         },
