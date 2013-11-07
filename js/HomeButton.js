@@ -103,8 +103,8 @@ function (
                     this.emit("home", evtObject);
                     def.resolve(evtObject);
                 }), lang.hitch(this, function(error){
-                    this.emit("home", {error:error});
-                    def.reject(error.message);
+                    this.emit("home", {error:error || true});
+                    def.reject(error);
                 }));
             }
             else{
