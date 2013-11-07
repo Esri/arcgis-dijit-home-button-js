@@ -103,13 +103,16 @@ function (
                     this.emit("home", evtObject);
                     def.resolve(evtObject);
                 }), lang.hitch(this, function(error){
+                    this.emit("home", {error:error});
                     def.reject(error.message);
                 }));
             }
             else{
                 this._hideLoading();
-                console.log('HomeButton::no home extent');
-                def.reject('HomeButton::no home extent');
+                var message = 'HomeButton::no home extent';
+                this.emit("home", {error:message});
+                console.log(message);
+                def.reject(message);
             }
             return def.promise;
         },
