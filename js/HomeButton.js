@@ -60,9 +60,7 @@ function (
         // bind listener for button to action
         postCreate: function() {
             this.inherited(arguments);
-            this.own(
-                on(this._homeNode, a11yclick, lang.hitch(this, this.home))
-            );
+            this.own(on(this._homeNode, a11yclick, lang.hitch(this, this.home)));
         },
         // start widget. called by user
         startup: function() {
@@ -134,7 +132,7 @@ function (
         _init: function() {
             this._visible();
             if(!this.get("extent")){
-                this.set("extent", this.map.extent);   
+                this.set("extent", lang.clone(this.map.extent));   
             }
             this.set("loaded", true);
             this.emit("load", {});
