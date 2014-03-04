@@ -10,8 +10,8 @@ define([
     "dojo/on",
     "dojo/Deferred",
     // load template    
-    "dojo/text!zesri/dijit/templates/HomeButton.html",
-    "dojo/i18n!zesri/nls/jsapi",
+    "dojo/text!application/dijit/templates/HomeButton.html",
+    "dojo/i18n!application/nls/jsapi",
     "dojo/dom-class",
     "dojo/dom-style"
 ],
@@ -27,20 +27,28 @@ function (
     domClass, domStyle
 ) {
     var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
+        // widget class for legacy
+        
         declaredClass: "esri.dijit.HomeButton",
+        
+        // template HTML
         templateString: dijitTemplate,
+        
+        // default options
         options: {
             theme: "HomeButton",
             map: null,
             extent: null,
             visible: true
         },
+        
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
             // mix in settings and defaults
             var defaults = lang.mixin({}, this.options, options);
             // widget node
             this.domNode = srcRefNode;
+            // store localized strings
             this._i18n = i18n;
             // properties
             this.set("map", defaults.map);
@@ -93,20 +101,28 @@ function (
         /* Public Functions */
         /* ---------------- */
         home: function() {
+            // deferred to return
             var def = new Deferred();
+            
+            // get extent property
             var defaultExtent = this.get("extent");
+            
+            // show loading spinner
             this._showLoading();
+            
+            // event object
             var homeEvt = {
                 extent: defaultExtent
             };
             if(defaultExtent){
                 this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
+                    // hide loading spinner
                     this._hideLoading();
                     this.emit("home", homeEvt);
                     def.resolve(homeEvt);
                 }), lang.hitch(this, function(error){
                     if(!error){
-                        error = new Error("HomeButton::Failed setting extent on map");
+                        error = new Error("HomeButton::Error setting map extent");
                     }
                     homeEvt.error = error;
                     this.emit("home", homeEvt);
@@ -115,7 +131,7 @@ function (
             }
             else{
                 this._hideLoading();
-                var error = new Error("HomeButton::no home extent");
+                var error = new Error("HomeButton::home extent is undefined");
                 homeEvt.error = error;
                 this.emit("home", homeEvt);
                 def.reject(error);
@@ -132,10 +148,13 @@ function (
         /* Private Functions */
         /* ---------------- */
         _init: function() {
+            // show or hide widget
             this._visible();
+            // if no extent set, set extent to map extent
             if(!this.get("extent")){
                 this.set("extent", this.map.extent);   
             }
+            // widget is now loaded
             this.set("loaded", true);
             this.emit("load", {});
         },

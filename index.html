@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <title>Home Extent Button Dijit</title>
-    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.6/js/esri/css/esri.css">
-    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.6/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
     <link rel="stylesheet" type="text/css" href="css/HomeButton.css">
     <style type="text/css">
-    body{
+        body{
             margin:40px;
             padding:20px;
         }
@@ -33,39 +33,40 @@
     </style>
 </head>
 <body class="claro">
+    
+    
     <div class="container">
         <div id="map" class="map">
             <div id="HomeButton"></div>
         </div>
     </div>
-    <h2>All Options</h2>
-    <script src="https://gist.github.com/driskull/6226546.js"></script>
+    
+    
+    <!-- <h2>All Options</h2>
+    <script src="https://gist.github.com/driskull/6226546.js"></script> -->
     <script type="text/javascript">
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
         var dojoConfig = {
             // The locationPath logic below may look confusing but all its doing is 
             // enabling us to load the api from a CDN and load local modules from the correct location.
             packages: [{
-                name: "modules",
-                location: package_path + '/js'
-            }, {
-                name: "zesri",
+                name: "application",
                 location: package_path + '/js'
             }]
         };
     </script>
-    <script src="http://js.arcgis.com/3.6/" type="text/javascript"></script>
+    
+    <script src="http://js.arcgis.com/3.9/" type="text/javascript"></script>
+    
     <script type="text/javascript">
 
-        require(["esri/map", "modules/HomeButton", "dojo/on"], function(Map, HomeButton, on){
+        require(["esri/map", "application/HomeButton", "dojo/on"], function(Map, HomeButton, on){
 
             var myMap = new Map("map", {
                 center: [-56.049, 38.485],
                 zoom: 3,
                 basemap: "streets"
             });
-
-            
             
             myWidget = new HomeButton({
                 map: myMap,
@@ -77,8 +78,6 @@
             
             myWidget.startup();
             
-            
-
         });
     </script>
 </body>
