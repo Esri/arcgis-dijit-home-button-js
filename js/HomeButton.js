@@ -2,16 +2,15 @@ define([
     "dojo/Evented",
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "dojo/has",
-    "esri/kernel",
+    "dojo/has", // feature detection
+    "esri/kernel", // esri namespace
     "dijit/_WidgetBase",
-    "dijit/a11yclick",
+    "dijit/a11yclick", // Custom press, release, and click synthetic events which trigger on a left mouse click, touch, or space/enter keyup.
     "dijit/_TemplatedMixin",
     "dojo/on",
-    "dojo/Deferred",
-    // load template    
-    "dojo/text!application/dijit/templates/HomeButton.html",
-    "dojo/i18n!application/nls/jsapi",
+    "dojo/Deferred",  
+    "dojo/text!application/dijit/templates/HomeButton.html", // template html
+    "dojo/i18n!application/nls/jsapi", // localization
     "dojo/dom-class",
     "dojo/dom-style"
 ],
@@ -26,10 +25,7 @@ function (
     dijitTemplate, i18n,
     domClass, domStyle
 ) {
-    var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-        // widget class for legacy
-        
-        declaredClass: "esri.dijit.HomeButton",
+    var Widget = declare("esri.dijit.HomeButton", [_WidgetBase, _TemplatedMixin, Evented], {
         
         // template HTML
         templateString: dijitTemplate,
@@ -115,9 +111,11 @@ function (
                 extent: defaultExtent
             };
             if(defaultExtent){
+                // set map extent
                 this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
                     // hide loading spinner
                     this._hideLoading();
+                    // home event
                     this.emit("home", homeEvt);
                     def.resolve(homeEvt);
                 }), lang.hitch(this, function(error){
@@ -125,11 +123,13 @@ function (
                         error = new Error("HomeButton::Error setting map extent");
                     }
                     homeEvt.error = error;
+                    // home event
                     this.emit("home", homeEvt);
                     def.reject(error);
                 }));
             }
             else{
+                // hide loading spinner
                 this._hideLoading();
                 var error = new Error("HomeButton::home extent is undefined");
                 homeEvt.error = error;
@@ -138,9 +138,11 @@ function (
             }
             return def.promise;
         },
+        // show widget
         show: function(){
             this.set("visible", true);  
         },
+        // hide widget
         hide: function(){
             this.set("visible", false);
         },
@@ -158,16 +160,20 @@ function (
             this.set("loaded", true);
             this.emit("load", {});
         },
+        // show loading spinner
         _showLoading: function(){
             domClass.add(this._homeNode, this._css.loading);
         },
+        // hide loading spinner
         _hideLoading: function(){
             domClass.remove(this._homeNode, this._css.loading);
         },
+        // theme changed
         _updateThemeWatch: function(attr, oldVal, newVal) {
             domClass.remove(this.domNode, oldVal);
             domClass.add(this.domNode, newVal);
         },
+        // show or hide widget
         _visible: function(){
             if(this.get("visible")){
                 domStyle.set(this.domNode, 'display', 'block');
