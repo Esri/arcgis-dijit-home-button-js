@@ -35,6 +35,7 @@ function (
             theme: "HomeButton",
             map: null,
             extent: null,
+            fit: false,
             visible: true
         },
         
@@ -51,6 +52,7 @@ function (
             this.set("theme", defaults.theme);
             this.set("visible", defaults.visible);
             this.set("extent", defaults.extent);
+            this.set("fit", defaults.fit);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -112,7 +114,7 @@ function (
             };
             if(defaultExtent){
                 // set map extent
-                this.map.setExtent(defaultExtent).then(lang.hitch(this, function(){
+                this.map.setExtent(defaultExtent, this.get("fit")).then(lang.hitch(this, function(){
                     // hide loading spinner
                     this._hideLoading();
                     // home event
