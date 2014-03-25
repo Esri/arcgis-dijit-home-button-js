@@ -113,22 +113,31 @@ function (
                 extent: defaultExtent
             };
             if(defaultExtent){
-                // set map extent
-                this.map.setExtent(defaultExtent, this.get("fit")).then(lang.hitch(this, function(){
-                    // hide loading spinner
+                // extent is not the same as current extent
+                if(this.map.extent !== defaultExtent){
+                    // set map extent
+                    this.map.setExtent(defaultExtent, this.get("fit")).then(lang.hitch(this, function(){
+                        // hide loading spinner
+                        this._hideLoading();
+                        // home event
+                        this.emit("home", homeEvt);
+                        def.resolve(homeEvt);
+                    }), lang.hitch(this, function(error){
+                        if(!error){
+                            error = new Error("HomeButton::Error setting map extent");
+                        }
+                        homeEvt.error = error;
+                        // home event
+                        this.emit("home", homeEvt);
+                        def.reject(error);
+                    }));
+                }
+                else{
+                    // same extent
                     this._hideLoading();
-                    // home event
                     this.emit("home", homeEvt);
                     def.resolve(homeEvt);
-                }), lang.hitch(this, function(error){
-                    if(!error){
-                        error = new Error("HomeButton::Error setting map extent");
-                    }
-                    homeEvt.error = error;
-                    // home event
-                    this.emit("home", homeEvt);
-                    def.reject(error);
-                }));
+                }
             }
             else{
                 // hide loading spinner
