@@ -3,9 +3,9 @@
 ## Features
 A simple dijit button return to the map's default extent when clicked.
 
-![App](https://raw.github.com/driskull/arcgis-dijit-home-button-js/master/images/demo.png)
+![App](https://raw.github.com/esri/arcgis-dijit-home-button-js/master/images/demo.png)
 
-[View Demo](http://driskull.github.com/arcgis-dijit-home-button-js/)
+[View Demo](http://esri.github.com/arcgis-dijit-home-button-js/)
 
 ## Instructions
 
