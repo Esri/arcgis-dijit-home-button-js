@@ -9,8 +9,8 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     "dojo/Deferred",  
-    "dojo/text!./dijit/templates/HomeButton.html", // template html
-    "dojo/i18n!./nls/jsapi", // localization
+    "dojo/text!application/dijit/templates/HomeButton.html", // template html
+    "dojo/i18n!application/nls/jsapi", // localization
     "dojo/dom-class",
     "dojo/dom-style"
 ],
